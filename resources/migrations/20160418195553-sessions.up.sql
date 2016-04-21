@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS sessions
  site_id VARCHAR(256) NOT NULL,
  user_id VARCHAR(256) NOT NULL,
  prev_session_count INT DEFAULT 0,
+ channel VARCHAR(20) NULL,
  ip VARCHAR(50) NULL,
  locale VARCHAR(50) NULL,
  user_agent VARCHAR(150) NULL,
