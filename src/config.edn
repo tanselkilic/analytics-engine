@@ -1,0 +1,25 @@
+{:dev {:database-url
+       "jdbc:mysql://127.0.0.1:3306/analytics?user=root&password=2sr5kjfKy9&useUnicode=yes&characterEncoding=utf8&useSSL=false"
+       :database-name
+       "analytics"
+       :database-pass
+       "2sr5kjfKy9"
+       :database-user
+       "root"
+       :database-host
+       "localhost"}
+ :test {:database-url
+       "jdbc:mysql://127.0.0.1:3306/analytics?user=root&password=2sr5kjfKy9&useUnicode=yes&characterEncoding=utf8&useSSL=false"
+       :database-name
+       "analytics"
+        :database-pass
+        "2sr5kjfKy9"
+        :database-user
+        "root"
+        :database-host
+        "localhost"}
+ :prod {:database-url (System/getenv "DB_URL")
+        :database-name (System/getenv "DB_NAME")
+        :database-user (System/getenv "DB_USER")
+        :database-pass (System/getenv "DB_PASS")
+        :database-host (System/getenv "DB_HOST")}}
