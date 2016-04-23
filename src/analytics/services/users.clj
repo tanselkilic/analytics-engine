@@ -5,6 +5,13 @@
   (:gen-class))
 
 
+(defn get-user
+  [site-id user-id]
+  (db-get-user
+    {:user_id user-id
+     :site_id site-id}))
+
+
 (defn add-user!
   [anonymous-id p-user-id site-id channel]
   (let [user-id (or p-user-id anonymous-id)]
@@ -14,6 +21,16 @@
        :site_id site-id
        :channel channel
        :created_at (Date.)})))
+
+(defn insert-user-if-needed
+  [anonymous-id user-id site-id channel]
+  (let [user (get-user site-id user-id)]
+    (if (nil? user)
+      (add-user!
+        anonymous-id
+        user-id
+        site-id
+        channel))))
 
 
 (defn delete-user-by-id!

@@ -1,3 +1,8 @@
+-- :name db-get-session :? :1
+-- :doc retrieve a session given the session id.
+SELECT * FROM sessions
+WHERE session_id = :session_id
+
 -- :name db-create-session! :! :n
 -- :doc creates a new session record
 INSERT INTO sessions
@@ -47,10 +52,4 @@ AND created_at <= :end_date
 -- :name db-session-last-updated-at :? :1
 -- :doc returns last updated date for a session record
 SELECT updated_at FROM sessions
-WHERE session_id = :session_id
-
-
--- :name db-get-session :? :1
--- :doc retrieve a session given the session id.
-SELECT * FROM sessions
 WHERE session_id = :session_id

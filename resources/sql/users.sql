@@ -1,3 +1,9 @@
+-- :name db-get-user :? :1
+-- :doc retrieve a user given the user id.
+SELECT * FROM users
+WHERE user_id = :user_id
+AND site_id = :site_id
+
 -- :name db-create-user! :! :n
 -- :doc creates a new user record
 INSERT INTO users
@@ -88,12 +94,6 @@ AND trait_name = :trait_name
 -- :name db-count-users :? *
 -- :doc retrieve number of users
 SELECT count(*) FROM users
-
--- :name db-get-user :? :1
--- :doc retrieve a user given the user id.
-SELECT * FROM users
-WHERE user_id = :user_id
-AND site_id = :site_id
 
 
 -- :name db-count-users-by-site :? :1

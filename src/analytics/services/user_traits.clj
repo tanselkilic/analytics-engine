@@ -6,10 +6,25 @@
 
 (defn- create-user-traits!
   [site-id user-id trait-map]
-  (db-create-user-traits! (assoc trait-map
-                            :site_id site-id
-                            :user_id user-id
-                            :created_at (Date.))))
+  (db-create-user-traits!
+    {:site_id site-id
+     :user_id user-id
+     :address (:address trait-map)
+     :city (:city trait-map)
+     :country_code (:country_code trait-map)
+     :postal_code (:postal_code trait-map)
+     :state (:state trait-map)
+     :age (:age trait-map)
+     :avatar_url (:avatar_url trait-map)
+     :birthday (:birthday trait-map)
+     :description (:description trait-map)
+     :email (:email trait-map)
+     :full_name (:full_name trait-map)
+     :gender (:gender trait-map)
+     :phone (:phone trait-map)
+     :title (:title trait-map)
+     :username (:username trait-map)
+     :created_at (Date.)}))
 
 
 (defn- update-user-traits!

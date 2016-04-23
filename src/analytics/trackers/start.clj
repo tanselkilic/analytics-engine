@@ -1,15 +1,13 @@
 (ns analytics.trackers.start
   (:use [analytics.services.ops])
   (:require [analytics.core :refer :all]
+            [analytics.trackers.core :as tc]
             [analytics.utils :as util])
   (:gen-class))
 
 
 (defmethod track-op "start" [data]
-  (println "Create a user if needed")
-    ;; create or ping a session
-  (println "Starting a new stream with data" data)
-
+  (tc/user-session-prep data)
 
   ;; Track Event
   (let [op-id
@@ -22,5 +20,5 @@
           (:channel data)
           (or (:page data) (:name data) (:screen data))
           (:event data))]
-    (println "Save properties")
+    (println "TODO: Save properties")
     op-id))

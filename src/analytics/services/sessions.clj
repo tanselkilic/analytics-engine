@@ -4,6 +4,11 @@
   (:import  [java.util Date])
   (:gen-class))
 
+(defn get-session
+  [session-id]
+  (db-get-session
+    {:session_id session-id}))
+
 
 (defn add-session!
   [session-id site-id user-id channel
@@ -54,8 +59,7 @@
 (defn bounced?
   "Checks if a session bounced or not"
   [session-id]
-  (let [session (db-get-session
-                  {:session_id session-id})]
+  (let [session (get-session session-id)]
     (and (session-expired? session-id)
          (= (:created_at session) (:updated_at session)))))
 
@@ -63,7 +67,5 @@
 (defn first-visit?
   "Checks if this is the first visit of a visitor or not"
   [session-id]
-  (let [session
-        (db-get-session
-          {:session_id session-id})]
+  (let [session (get-session session-id)]
     (= (:prev_session_count session) 0)))

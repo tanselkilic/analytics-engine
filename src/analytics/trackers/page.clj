@@ -1,13 +1,13 @@
 (ns analytics.trackers.page
   (:use [analytics.services.ops])
   (:require [analytics.core :refer :all]
+            [analytics.trackers.core :as tc]
             [analytics.utils :as util])
   (:gen-class))
 
 
 (defmethod track-op "page" [data]
-  (println "Create a user if needed")
-  (println "Create or ping a session")
+  (tc/user-session-prep data)
 
   ;; Track Page
   (let [op-id
@@ -20,6 +20,6 @@
           (:channel data)
           (:page data)
           nil)]
-    (println "Save properties")
+    (println "TODO: Save properties")
     op-id))
 

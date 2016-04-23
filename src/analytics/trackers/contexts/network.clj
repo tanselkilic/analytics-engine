@@ -6,8 +6,7 @@
 
 
 (defmethod track-context :network [p-context op-id data]
-  (let [context (second p-context)
-        loc_data (ip2geo (:ip (:context data)))]
+  (let [context (second p-context)]
     (add-network-context!
       op-id
       (:type data)

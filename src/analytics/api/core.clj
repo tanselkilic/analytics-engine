@@ -22,6 +22,8 @@
 (defn- op-valid? [data]
   ;; do security checks
   (println "Performing security checks")
+  ;; site-id, anonymous-id, channel, ip are crucial
+  ;; at least context node must be present
   ;; TODO: implement this
   true)
 
