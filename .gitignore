@@ -9,3 +9,5 @@ pom.xml.asc
 /.nrepl-port
 .hgignore
 .hg/
+GeoIPASNumv6.dat
+GeoLiteCityv6.dat
