@@ -20,3 +20,4 @@
         (.setTime compare-cal compare-date)
         (diff-in-secs now-cal compare-cal)))
     0))
+

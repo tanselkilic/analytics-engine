@@ -1,12 +1,13 @@
 (ns analytics.trackers.contexts.location
-  (:use [analytics.services.contexts.location])
+  (:use [analytics.services.contexts.location]
+        [de.bertschneider.clj-geoip.core])
   (:require [analytics.core :refer :all]
             [analytics.utils :as util])
   (:gen-class))
 
 (defn- ip2geo [ip]
-  ;; TODO: implement this
-  )
+  (let [mls (multi-lookup-service)]
+    (lookup mls ip)))
 
 
 (defmethod track-context :location [p-context op-id data]
@@ -22,7 +23,8 @@
       (:event data)
       (or (:latitude context) (:latitude loc_data))
       (or (:longitude context) (:longitude loc_data))
-      (or (:country_code context) (:country_code loc_data))
+      (or (:country_code context) (:country-code loc_data))
       (or (:city context) (:city loc_data))
-      (or (:postal_code context) (:postal_code loc_data))
-      (or (:organization context) (:organization loc_data)))))
+      (or (:postal_code context) (:postal-code loc_data))
+      (or (:organization context) (:org loc_data)))))
+

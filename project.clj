@@ -10,7 +10,7 @@
                  [org.slf4j/slf4j-log4j12 "1.7.9"]
                  [mysql/mysql-connector-java "5.1.38"]
                  [conman "0.4.9"]
-                 [mount "0.1.10"]]
+                 [de.bertschneider/clj-geoip "0.2"]]
   :plugins [[migratus-lein "0.2.6"]]
 
   :main ^:skip-aot analytics.core
