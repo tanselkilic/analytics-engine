@@ -63,9 +63,13 @@
 (defn save-user-traits!
   [site-id user-id trait-map]
   (let [orig-traits (db-get-user-traits {:site_id site-id :user_id user-id})
-        custom-traits (dissoc trait-map :site_id :user_id :address :city :country_code :postal_code :state
-                              :age :avatar_url :birthday :description :email :full_name :gender :phone
-                              :title :username :updated_at :created_at)]
+        custom-traits
+        (dissoc trait-map
+                :site_id :user_id :address :city
+                :country_code :postal_code :state
+                :age :avatar_url :birthday :description
+                :email :full_name :gender :phone
+                :title :username :updated_at :created_at)]
     (if (nil? orig-traits)
       (create-user-traits!
         site-id user-id

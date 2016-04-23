@@ -29,18 +29,19 @@ WHERE session_id = :session_id
 
 
 -- :name db-count-sessions-by-user :? :1
--- :doc count users given the user id.
+-- :doc count sessions given the user id.
 SELECT count(*) as num FROM sessions
 WHERE site_id = :site_id
 AND user_id = :user_id
 
 
 -- :name db-count-sessions-by-user-date :? :1
--- :doc count users given the user id.
+-- :doc count sessions given the user id.
 SELECT count(*) as num FROM sessions
 WHERE site_id = :site_id
 AND user_id = :user_id
-AND created_at >= :created_at
+AND created_at >= :begin_date
+AND created_at <= :end_date
 
 
 -- :name db-session-last-updated-at :? :1
@@ -50,6 +51,6 @@ WHERE session_id = :session_id
 
 
 -- :name db-get-session :? :1
--- :doc retrieve a user given the session id.
+-- :doc retrieve a session given the session id.
 SELECT * FROM sessions
 WHERE session_id = :session_id
