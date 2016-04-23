@@ -1,4 +1,4 @@
--- :name db-create-op! :! :n
+-- :name db-create-op! :insert
 -- :doc creates a new op record
 INSERT INTO ops
 (op_type, site_id, user_id, session_id,

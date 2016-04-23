@@ -144,3 +144,20 @@ VALUES (:op_id, :op_type, :site_id, :user_id,
         :session_id, :page, :event, :referrer_type,
         :referrer_url, :referrer_domain, :page_title,
         :page_url, :created_at)
+
+
+-- :name db-get-os-context-by-op-id :? :1
+-- :doc retrieve a os context by op id
+SELECT * FROM os_context
+WHERE op_id = :op_id
+
+
+-- :name db-create-os-context! :! :n
+-- :doc creates a new os context
+INSERT INTO os_context
+(op_id, op_type, site_id, user_id,
+ session_id, page, event, os_name,
+ os_version, created_at)
+VALUES (:op_id, :op_type, :site_id, :user_id,
+        :session_id, :page, :event, :os_name,
+        :os_version, :created_at)

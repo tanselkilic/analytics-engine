@@ -1,7 +1,6 @@
 (ns analytics.services.sessions
   (:require [analytics.core :refer :all]
-            [analytics.utils :as util]
-            [conman.core :as conman])
+            [analytics.utils :as util])
   (:import  [java.util Date])
   (:gen-class))
 

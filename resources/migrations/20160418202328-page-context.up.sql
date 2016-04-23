@@ -7,11 +7,11 @@ CREATE TABLE IF NOT EXISTS page_context
  session_id VARCHAR(50) NOT NULL,
  page VARCHAR(500) NULL,
  event VARCHAR(500) NULL,
- referrer_type VARCHAR(20) NOT NULL,    -- internal/external
- referrer_url VARCHAR(500) NOT NULL,
- referrer_domain VARCHAR(100) NOT NULL,
- page_title VARCHAR(500) NOT NULL,
- page_url VARCHAR(500) NOT NULL,
+ referrer_type VARCHAR(20) NULL,    -- internal/external
+ referrer_url VARCHAR(500) NULL,
+ referrer_domain VARCHAR(100) NULL,
+ page_title VARCHAR(500) NULL,
+ page_url VARCHAR(500) NULL,
  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
  PRIMARY KEY (id),
  FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE,

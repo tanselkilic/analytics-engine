@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS screen_context;
+DROP TABLE IF EXISTS client_context;
