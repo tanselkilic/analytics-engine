@@ -2,7 +2,6 @@
   (:require [migratus.core :as migratus]
             [clojure.java.jdbc :as jdbc]
             [conman.core :as conman]
-            [analytics.metrics.core :as metrics]
             [analytics.env :refer [env]])
   (:import [java.sql BatchUpdateException PreparedStatement])
   (:gen-class))
@@ -25,7 +24,8 @@
       "sql/sessions.sql"
       "sql/contexts.sql"
       "sql/ops.sql"
-      "sql/sites.sql")))
+      "sql/sites.sql"
+      "sql/metrics.sql")))
 
 (defn get-db []
   @db)
@@ -73,9 +73,6 @@
 ;; main method to run via leiningen
 (defn start-app [& args]
   (println "Starting app..."))
-
-;; run the metrics loop if needed
-(future (metrics/metrics-loop))
 
 (defn -main [& args]
   (cond

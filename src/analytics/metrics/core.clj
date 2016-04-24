@@ -23,17 +23,25 @@
         []
         (let [item (async/<! chn/chn-metrics)
               data (:data item)]
-          (println "Got metric:" (:type item))
+          (try
+            (println "Got metric:" (:type item))
 
-          ;; TODO: redirect the metrics op.
-          (case (:type item)
-            "page" (page/metrics-ops data)
-            "event" (event/metrics-ops data)
-            "screen" (screen/metrics-ops data)
-            "session" (session/metrics-ops data)
-            "start" (start/metrics-ops data)
-            "stop" (stop/metrics-ops data)
-            "user" (user/metrics-ops data)
-            "default")
+            ;; TODO: redirect the metrics op.
+            (case (:type item)
+              "page" (page/metrics-ops data)
+              "event" (event/metrics-ops data)
+              "screen" (screen/metrics-ops data)
+              "session" (session/metrics-ops data)
+              "start" (start/metrics-ops data)
+              "stop" (stop/metrics-ops data)
+              "user" (user/metrics-ops data)
+              "default")
+            (catch Exception e (.printStackTrace e)))
           (recur)))
-      (reset! metrics-atom "1"))))
+      (reset! metrics-atom "1")
+      1)
+      (do
+        (println "Metrics loop still running")
+        0)))
+
+(metrics-loop)
