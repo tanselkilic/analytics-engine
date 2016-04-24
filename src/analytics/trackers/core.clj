@@ -1,7 +1,10 @@
 (ns analytics.trackers.core
-  (:require [analytics.services.users :as users]
+  (:require [analytics.core :refer :all]
+            [analytics.channels :as chn]
+            [analytics.services.users :as users]
             [analytics.services.ops :as ops]
-            [analytics.services.sessions :as sessions])
+            [analytics.services.sessions :as sessions]
+            [analytics.utils :as util])
   (:gen-class))
 
 (defn user-session-prep [data]
@@ -28,7 +31,7 @@
         (sessions/ping-session!
           session-id)
 
-        ;; add this op as land
+        ;; record this op as new session (land)
         (ops/add-op!
           "land"
           (:site-id data)
@@ -37,4 +40,9 @@
           (or (:hash-code data) (util/uuid))
           (:channel data)
           (:page data)
-          nil)))))
+          nil))))
+
+  ;; Track metrics
+  (chn/>! chn/chn-metrics {:type "user" :data data})
+  (chn/>! chn/chn-metrics {:type "session" :data data}))
+

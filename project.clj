@@ -1,6 +1,6 @@
 (defproject analytics "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "General purpose analytics engine in Clojure"
+  :url "http://kuzu.io"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
@@ -10,6 +10,7 @@
                  [org.slf4j/slf4j-log4j12 "1.7.9"]
                  [mysql/mysql-connector-java "5.1.38"]
                  [conman "0.4.9"]
+                 [org.clojure/core.async "0.2.374"]
                  [de.bertschneider/clj-geoip "0.2"]]
   :plugins [[migratus-lein "0.2.6"]]
 

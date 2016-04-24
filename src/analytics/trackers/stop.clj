@@ -1,6 +1,7 @@
 (ns analytics.trackers.stop
   (:use [analytics.services.ops])
   (:require [analytics.core :refer :all]
+            [analytics.channels :as chn]
             [analytics.trackers.core :as tc]
             [analytics.trackers.contexts.properties :as tp]
             [analytics.utils :as util])
@@ -21,7 +22,11 @@
           (:channel data)
           (or (:page data) (:name data) (:screen data))
           (:event data))]
-    (println "TODO: Calculating the duration from asset-id and generate stats")
+
+    ;; Track metrics and get duration from from asset-id
+    (chn/>! chn/chn-metrics
+           {:type "screen"
+            :data (assoc data :op-id op-id)})
 
     ;; Track Properties
     (tp/track-properties op-id data)

@@ -2,14 +2,17 @@
   (:require [migratus.core :as migratus]
             [clojure.java.jdbc :as jdbc]
             [conman.core :as conman]
+            [analytics.metrics.core :as metrics]
             [analytics.env :refer [env]])
   (:import [java.sql BatchUpdateException PreparedStatement])
   (:gen-class))
 
+;; used by conman for hugsql connections
 (def db (atom nil))
 
 (if (nil? @db)
   (do
+    (println "Initializing databases")
     (reset! db (conman/connect!
                 {:init-size  1
                  :min-idle   1
@@ -24,7 +27,10 @@
       "sql/ops.sql"
       "sql/sites.sql")))
 
+(defn get-db []
+  @db)
 
+;; basic protocol extends
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
 
@@ -41,14 +47,7 @@
     (.setTimestamp stmt idx (java.sql.Timestamp. (.getTime v)))))
 
 
-(defn start-app [args]
-  (println "Starting app"))
-
-
-(defn get-db []
-  @db)
-
-
+;; used by migratus, which is run via leiningen
 (def conn-edn
   {:store :database
    :migration-dir "migrations"
@@ -59,6 +58,7 @@
         :useSSL false
         :password (env :database-pass)}})
 
+;; multi methods to use when tracking
 (defmulti track-op
   (fn[data] (:type data)))
 
@@ -68,6 +68,14 @@
   (fn [context op-id data] (first context)))
 
 (defmethod track-context :default [_ _ _])
+
+
+;; main method to run via leiningen
+(defn start-app [& args]
+  (println "Starting app..."))
+
+;; run the metrics loop if needed
+(future (metrics/metrics-loop))
 
 (defn -main [& args]
   (cond

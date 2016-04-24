@@ -6,7 +6,7 @@
 (def data
   {:anonymous-id (util/uuid)
    :type "event"
-   :site-id "914b36e4-a10d-4e13-bf35-df888bfcb1fa"
+   :site-id "2423486b-1e8d-417b-bcd9-fb183c6eec9c"
    :user-id (str "hebelek" (util/uuid) "@pismail.com")
    :session-id (util/uuid) ;; "6088eec0-2336-47bc-afee-845e58cf0336"
    :channel "fn"
@@ -37,7 +37,7 @@
              :os {:name "iPhone OS"
                   :version "8.1.3"}
              :page {:url "/academy/"
-                    :referrer {:type "external"
+                    :referrer {:type "refferrer"
                                :url "http://pismail.com/index"
                                :domain "pismail.com"}
                     :title "Academy Page Title"}
@@ -51,11 +51,10 @@
                 :variation "blue signup button"}
    })
 
-
 (def data-identify
   {:anonymous-id "4b3a21a8-fc7f-4c61-859d-c9c9f2deaf38"
    :type "identify"
-   :site-id "914b36e4-a10d-4e13-bf35-df888bfcb1fa"
+   :site-id "2423486b-1e8d-417b-bcd9-fb183c6eec9c"
    :user-id "hebelek555@pismail.com"
    :channel "fn"
    :traits {:address "Yeni bir adres"
@@ -73,5 +72,5 @@
 (deftest identify-test
   (track data-identify))
 
-;; (track-test)
+(track-test)
 ;; (identify-test)
