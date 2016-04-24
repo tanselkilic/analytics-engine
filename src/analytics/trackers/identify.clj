@@ -20,12 +20,14 @@
       (:user-id data)
       traits-map))
 
-  (ops/add-op!
-    "identify"
-    (:site-id data)
-    (or (:user-id data) (:anonymous-id data))
-    (:session-id data)
-    (or (:hash-code data) (util/uuid))
-    (:channel data)
-    (:page data)
-    nil))
+  ;; if session-id exists save it as an op
+  (if (:session-id data)
+    (ops/add-op!
+      "identify"
+      (:site-id data)
+      (or (:user-id data) (:anonymous-id data))
+      (:session-id data)
+      (or (:hash-code data) (util/uuid))
+      (:channel data)
+      (:page data)
+      nil)))

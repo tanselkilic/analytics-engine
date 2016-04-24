@@ -2,6 +2,7 @@
   (:use [analytics.services.ops])
   (:require [analytics.core :refer :all]
             [analytics.trackers.core :as tc]
+            [analytics.trackers.contexts.properties :as tp]
             [analytics.utils :as util])
   (:gen-class))
 
@@ -19,7 +20,8 @@
           (:channel data)
           (or (:page data) (:name data) (:screen data))
           nil)]
-    (println "TODO: Save properties")
+    ;; Track Properties
+    (tp/track-properties op-id data)
     op-id))
 
 

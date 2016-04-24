@@ -52,8 +52,8 @@
         secs-since-updated
         (util/secs-until-date last-updated-at)]
 
-    ;; expires in 5 minutes
-    (> secs-since-updated 300)))
+    ;; expires in 30 minutes
+    (> secs-since-updated 1800)))
 
 
 (defn bounced?

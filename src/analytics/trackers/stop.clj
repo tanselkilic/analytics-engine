@@ -2,6 +2,7 @@
   (:use [analytics.services.ops])
   (:require [analytics.core :refer :all]
             [analytics.trackers.core :as tc]
+            [analytics.trackers.contexts.properties :as tp]
             [analytics.utils :as util])
   (:gen-class))
 
@@ -21,5 +22,7 @@
           (or (:page data) (:name data) (:screen data))
           (:event data))]
     (println "TODO: Calculating the duration from asset-id and generate stats")
-    (println "TODO: Save properties")
+
+    ;; Track Properties
+    (tp/track-properties op-id data)
     op-id))

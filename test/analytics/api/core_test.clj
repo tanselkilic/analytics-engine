@@ -46,53 +46,18 @@
              :user-agent "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1"
              :timezone "3" ;; var hrs = -(new Date().getTimezoneOffset() / 60)
              :hebelek {:test "1"}}
-   :properties {}
+   :properties {:plan "Pro Annual"
+                :account-type "Facebook"
+                :variation "blue signup button"}
    })
 
 
 (def data-identify
-  {:anonymous-id "e103652c-2aff-4159-b5c0-90497723918b"
+  {:anonymous-id "4b3a21a8-fc7f-4c61-859d-c9c9f2deaf38"
    :type "identify"
    :site-id "914b36e4-a10d-4e13-bf35-df888bfcb1fa"
-   :user-id "umutgokbayrak@yahoo.com"
-   :session-id "30bfc4c4-5692-4457-bb02-0ee56a6a9e82"
+   :user-id "hebelek555@pismail.com"
    :channel "fn"
-   :page "Sample"
-   :event "Button Clicked"
-   :context {:app {:name "Initech Global"
-                   :version "1.0"}
-             :campaign {:name "TPS Innovation Newsletter"
-                        :source "Newsletter"
-                        :medium "email"
-                        :term "tps records"
-                        :content "image link"}
-             :device {:id "B5372DB0-C21E-11E4-8DFC-AA07A5B093DB"
-                      :manufacturer "Apple"
-                      :model "iPhone7,2"
-                      :name "maguro"
-                      :type "ios"}
-             :locale "nl-NL"
-             :location {:city "San Francisco"
-                        :country "United States"
-                        :latitude 40.2964197
-                        :longitude -76.9411617}
-             :ip "8.8.8.8"
-             :network {:bluetooth false
-                       :carrier "T-Mobile NL"
-                       :cellular true
-                       :wifi true}
-             :os {:name "iPhone OS"
-                  :version "8.1.3"}
-             :page {:url "/academy/"
-                    :referrer {:type "external"
-                               :url "http://pismail.com/index"
-                               :domain "pismail.com"}
-                    :title "Academy Page Title"}
-             :screen {:height 768
-                      :width 1024}
-             :user-agent "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1"
-             :timezone "3" ;; var hrs = -(new Date().getTimezoneOffset() / 60)
-             :hebelek {:test "1"}}
    :traits {:address "Yeni bir adres"
             :age 39
             :email "umutgokbayrak@yahoo.com"
@@ -108,6 +73,5 @@
 (deftest identify-test
   (track data-identify))
 
-
 ;; (track-test)
-(identify-test)
+;; (identify-test)
