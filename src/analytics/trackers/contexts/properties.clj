@@ -1,7 +1,6 @@
 (ns analytics.trackers.contexts.properties
   (:use [analytics.services.properties])
-  (:require [analytics.core :refer :all]
-            [analytics.utils :as util])
+  (:require [analytics.core :refer :all])
   (:gen-class))
 
 (defn track-properties

@@ -1,7 +1,6 @@
 (ns analytics.trackers.contexts.device
   (:use [analytics.services.contexts.device])
-  (:require [analytics.core :refer :all]
-            [analytics.utils :as util])
+  (:require [analytics.core :refer :all])
   (:gen-class))
 
 

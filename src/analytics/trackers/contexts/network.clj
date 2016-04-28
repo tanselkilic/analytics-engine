@@ -1,7 +1,6 @@
 (ns analytics.trackers.contexts.network
   (:use [analytics.services.contexts.network])
-  (:require [analytics.core :refer :all]
-            [analytics.utils :as util])
+  (:require [analytics.core :refer :all])
   (:gen-class))
 
 

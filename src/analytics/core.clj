@@ -2,6 +2,7 @@
   (:require [migratus.core :as migratus]
             [clojure.java.jdbc :as jdbc]
             [conman.core :as conman]
+            [analytics.metrics.core :as metrics]
             [analytics.env :refer [env]])
   (:import [java.sql BatchUpdateException PreparedStatement])
   (:gen-class))
@@ -10,14 +11,21 @@
 (def db (atom nil))
 
 (if (nil? @db)
-  (do
+  (let [db-host (env :database-host)
+        db-port (env :database-port)
+        db-name (env :database-name)
+        db-user (env :database-user)
+        db-pass (env :database-pass)
+        db-url (str "jdbc:mysql://" db-host ":" db-port "/"
+                    db-name "?user=" db-user "&password=" db-pass
+                    "&useUnicode=yes&characterEncoding=utf8&useSSL=false")]
     (println "Initializing databases")
     (reset! db (conman/connect!
                 {:init-size  1
                  :min-idle   1
                  :max-idle   4
                  :max-active 32
-                 :jdbc-url   (env :database-url)}))
+                 :jdbc-url   db-url}))
     (conman/bind-connection
       @db
       "sql/users.sql"
@@ -72,6 +80,7 @@
 
 ;; main method to run via leiningen
 (defn start-app [& args]
+  (metrics/metrics-loop)
   (println "Starting app..."))
 
 (defn -main [& args]

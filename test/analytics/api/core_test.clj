@@ -65,7 +65,6 @@
             :children "Melissa"}
    })
 
-
 (deftest track-test
   (track data))
 
@@ -74,3 +73,5 @@
 
 (track-test)
 ;; (identify-test)
+
+; (keys (:properties data))

@@ -1,13 +1,8 @@
 (ns analytics.metrics.core
   (:require [analytics.channels :as chn]
             [clojure.core.async :as async]
-            [analytics.metrics.event :as event]
-            [analytics.metrics.page :as page]
-            [analytics.metrics.screen :as screen]
-            [analytics.metrics.session :as session]
-            [analytics.metrics.start :as start]
-            [analytics.metrics.stop :as stop]
-            [analytics.metrics.user :as user])
+            [analytics.services.metrics :as m]
+            [analytics.env :as env])
   (:gen-class))
 
 (def metrics-atom (atom nil))
@@ -25,23 +20,15 @@
               data (:data item)]
           (try
             (println "Got metric:" (:type item))
-
-            ;; TODO: redirect the metrics op.
-            (case (:type item)
-              "page" (page/metrics-ops data)
-              "event" (event/metrics-ops data)
-              "screen" (screen/metrics-ops data)
-              "session" (session/metrics-ops data)
-              "start" (start/metrics-ops data)
-              "stop" (stop/metrics-ops data)
-              "user" (user/metrics-ops data)
-              "default")
+            (let [context (:type item)]
+              (doseq [calc (env/metrics (keyword context))]
+                (m/+! context data calc)))
             (catch Exception e (.printStackTrace e)))
           (recur)))
       (reset! metrics-atom "1")
       1)
-      (do
-        (println "Metrics loop still running")
-        0)))
+    (do
+      (println "Metrics loop still running")
+      0)))
 
 (metrics-loop)

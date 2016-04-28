@@ -1,8 +1,7 @@
 (ns analytics.trackers.contexts.location
   (:use [analytics.services.contexts.location]
         [de.bertschneider.clj-geoip.core])
-  (:require [analytics.core :refer :all]
-            [analytics.utils :as util])
+  (:require [analytics.core :refer :all])
   (:gen-class))
 
 (defn- ip2geo [ip]

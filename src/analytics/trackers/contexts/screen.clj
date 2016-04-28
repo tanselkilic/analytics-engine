@@ -1,7 +1,6 @@
 (ns analytics.trackers.contexts.screen
   (:use [analytics.services.contexts.screen])
-  (:require [analytics.core :refer :all]
-            [analytics.utils :as util])
+  (:require [analytics.core :refer :all])
   (:gen-class))
 
 

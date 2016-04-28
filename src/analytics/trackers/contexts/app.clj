@@ -1,7 +1,6 @@
 (ns analytics.trackers.contexts.app
   (:use [analytics.services.contexts.app])
-  (:require [analytics.core :refer :all]
-            [analytics.utils :as util])
+  (:require [analytics.core :refer :all])
   (:gen-class))
 
 (defmethod track-context :app [p-context op-id data]
