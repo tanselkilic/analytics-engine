@@ -1,4 +1,5 @@
 (ns analytics.utils
+  (:use [de.bertschneider.clj-geoip.core])
   (:import [java.util UUID Calendar])
   (:gen-class))
 
@@ -21,3 +22,7 @@
         (diff-in-secs now-cal compare-cal)))
     0))
 
+
+(defn ip2geo [ip]
+  (let [mls (multi-lookup-service)]
+    (lookup mls ip)))

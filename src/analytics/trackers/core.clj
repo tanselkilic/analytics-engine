@@ -8,11 +8,15 @@
             [analytics.env :as env])
   (:gen-class))
 
-(defn track-metrics [context data]
+(defn track-metrics
+  "Tracks all sorts of metrics"
+  [context data]
   (doseq [calc (env/metrics context)]
     (m/+! (name context) data calc)))
 
-(defn user-session-prep [data]
+(defn user-session-prep
+  "Creates a user or a session if needed"
+  [data]
   ;; Creating a user record if needed
   (users/insert-user-if-needed
     (:anonymous-id data)
@@ -37,15 +41,16 @@
           (:user-agent (:context data)))
 
         ;; record this op as new session (land)
-        (ops/add-op!
-          "land"
-          (:site-id data)
-          (or (:user-id data) (:anonymous-id data))
-          (:session-id data)
-          (or (:hash-code data) (util/uuid))
-          (:channel data)
-          (:page data)
-          nil))
+        (if (env/enabled? :session.op.saved)
+          (ops/add-op!
+            "land"
+            (:site-id data)
+            (or (:user-id data) (:anonymous-id data))
+            (:session-id data)
+            (or (:hash-code data) (util/uuid))
+            (:channel data)
+            (:page data)
+            nil)))
       (do
         (println "Pinging the session")
         (sessions/ping-session!
@@ -54,4 +59,3 @@
   ;; Track metrics
   (track-metrics :user data)
   (track-metrics :session data))
-

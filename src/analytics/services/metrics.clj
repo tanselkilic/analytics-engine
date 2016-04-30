@@ -1,5 +1,6 @@
 (ns analytics.services.metrics
   (:require [analytics.core :refer :all]
+            [analytics.env :as env]
             [analytics.services.utils.metrics :as m-util]
             [digest :as digest])
   (:import  [java.util Date]
@@ -12,14 +13,26 @@
   (BigInteger. (digest/md5 s) 16))
 
 
-(defn- date-prefixes []
-  (let [date (Date.)]
-    [""
-     (.format (SimpleDateFormat. "yyy") date)
-     (.format (SimpleDateFormat. "yyy.MM") date)
-     (.format (SimpleDateFormat. "yyy.MM.dd") date)
-     (.format (SimpleDateFormat. "yyy.MM.dd HH") date)]))
-
+(defn- date-prefixes
+  "Reads date-prefix preferences and returns as an array"
+  []
+  (let [date (Date.)
+        all-time (if (env/enabled? :all.time.prefix.saved)
+                   [""]
+                   nil)
+        yearly (if (env/enabled? :yearly.prefix.saved)
+                 (.format (SimpleDateFormat. "yyy") date)
+                 nil)
+        monthly (if (env/enabled? :monthly.prefix.saved)
+                 (.format (SimpleDateFormat. "yyy MM") date)
+                 nil)
+        daily (if (env/enabled? :daily.prefix.saved)
+                 (.format (SimpleDateFormat. "yyy MM dd") date)
+                 nil)
+        hourly (if (env/enabled? :hourly.prefix.saved)
+                 (.format (SimpleDateFormat. "yyy MM dd HH") date)
+                 nil)]
+    (remove nil? [all-time yearly monthly daily hourly])))
 
 (defn get-metric
   "Retrieves a metric row"
@@ -110,8 +123,6 @@
 (defn +!
   "Increments the metric automating the date prefixes"
   [context data dimensions-map]
-
-  ;; TODO: check if metric is enabled
 
   (if (true? (some #(= :properties %) dimensions-map))
     (let [props (:properties data)

@@ -28,137 +28,25 @@
   [:site-id :timezone]
   [:site-id :properties]]
  :event
- [
-  ;; number of events per channel
-
-  ;; number of events per page
-
-  ;; number of events per site
-
-  ;; number of events per visit
-
-  ;; number of events per user
-
-  ;; number of events per app
-
-  ;; number of events per campaign
-
-  ;; number of events per device
-
-  ;; number of events per locale
-
-  ;; number of events per location
-
-  ;; number of events per network
-
-  ;; number of events per os
-
-  ;; number of events per referrer
-
-  ;; number of events per screen
-
-  ;; number of events per timezone
-
-  ;; number of events per property
-   ]
+ [[:site-id :event]
+  [:site-id :event :channel]
+  [:site-id :event :page]
+  [:site-id :event :app-name]
+  [:site-id :event :campaign-name]
+  [:site-id :event :properties]]
  :page
- [
-  ;; number of pages per channel
-
-  ;; number of pages per site
-
-  ;; number of pages per visit (pv/v)
-
-  ;; number of pages per user (pv/uv)
-
-  ;; number of pages per app
-
-  ;; number of pages per campaign
-
-  ;; number of pages per device
-
-  ;; number of pages per locale
-
-  ;; number of pages per location
-
-  ;; number of pages per network
-
-  ;; number of pages per os
-
-  ;; number of pages per referrer
-
-  ;; number of pages per screen
-
-  ;; number of pages per timezone
-
-  ;; number of pages per property
-   ]
+ [[:site-id :page]
+  [:site-id :page :channel]
+  [:site-id :page :app-name]
+  [:site-id :page :campaign-name]
+  [:site-id :page :properties]]
  :screen
- [
-  ;; number of screens
-
-  ;; number of screens per channel
-
-  ;; number of screens per site
-
-  ;; number of screens per visit (screen/v)
-
-  ;; number of screens per user (screen/uv)
-
-  ;; number of screens per app
-
-  ;; number of screens per campaign
-
-  ;; number of screens per device
-
-  ;; number of screens per locale
-
-  ;; number of screens per location
-
-  ;; number of screens per network
-
-  ;; number of screens per os
-
-  ;; number of screens per referrer
-
-  ;; number of screens per screen
-
-  ;; number of screens per timezone
-
-  ;; number of screens per property
-   ]
- :start
- [
-  ;; number of starts per channel
-
-  ;; number of starts per site
-
-  ;; number of starts per app
-
-  ;; number of starts per user
-
-  ;; number of starts per session
-
-  ;; number of starts per campaign
-
-  ;; number of starts per device
-
-  ;; number of starts per locale
-
-  ;; number of starts per location
-
-  ;; number of starts per network
-
-  ;; number of starts per os
-
-  ;; number of starts per referrer
-
-  ;; number of starts per screen
-
-  ;; number of starts per timezone
-
-  ;; number of starts per property
-   ]
+ [[:site-id :page]
+  [:site-id :page :channel]
+  [:site-id :page :app-name]
+  [:site-id :page :campaign-name]
+  [:site-id :page :properties]]
+ :start []
  :stop
  [
   ;; duration per channel
@@ -192,31 +80,32 @@
   ;; duration per property
    ]
  :user
- [
-  ;; number of users per channel
-
-  ;; number of users per site
-
-  ;; number of users per app
-
-  ;; number of users per campaign
-
-  ;; number of users per device
-
-  ;; number of users per locale
-
-  ;; number of users per location
-
-  ;; number of users per network
-
-  ;; number of users per os
-
-  ;; number of users per referrer
-
-  ;; number of users per screen
-
-  ;; number of users per timezone
-
-  ;; number of users per property
-
-   ]}
+ [[:site-id]
+  [:site-id :channel]
+  [:site-id :app-name]
+  [:site-id :app-version]
+  [:site-id :locale]
+  [:site-id :city]
+  [:site-id :country]
+  [:site-id :carrier]
+  [:site-id :bluetooth]
+  [:site-id :wifi]
+  [:site-id :cellular]
+  [:site-id :os-name]
+  [:site-id :os-name :os-version]
+  [:site-id :referrer-domain]
+  [:site-id :referrer-type]
+  [:site-id :referrer-type :referrer-domain]
+  [:site-id :campaign-name]
+  [:site-id :campaign-source]
+  [:site-id :campaign-medium]
+  [:site-id :campaign-term]
+  [:site-id :campaign-content]
+  [:site-id :campaign-source :campaign-medium]
+  [:site-id :campaign-source :campaign-medium :campaign-name]
+  [:site-id :manufacturer]
+  [:site-id :model]
+  [:site-id :screen]
+  [:site-id :timezone]
+  [:site-id :properties]]
+}

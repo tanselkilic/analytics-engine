@@ -36,6 +36,7 @@
                      (fn [[k v]]
                        (map? v))
                      (:context data))]
-      (doseq [context contexts]
-        (track-context context op-id data)))
+      (if (> op-id 0)
+        (doseq [context contexts]
+          (track-context context op-id data))))
     (println "Not a valid data")))

@@ -16,3 +16,8 @@
 
 (defn analytics [k]
   (get analytics-map k))
+
+
+(defn enabled? [k]
+  (or (get analytics-map k) false))
+

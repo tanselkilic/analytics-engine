@@ -1,5 +1,6 @@
 (ns analytics.trackers.identify
   (:require [analytics.core :refer :all]
+            [analytics.env :as env]
             [analytics.services.users :as users]
             [analytics.services.ops :as ops]
             [analytics.services.user-traits :as traits]
@@ -21,13 +22,17 @@
       traits-map))
 
   ;; if session-id exists save it as an op
-  (if (:session-id data)
-    (ops/add-op!
-      "identify"
-      (:site-id data)
-      (or (:user-id data) (:anonymous-id data))
-      (:session-id data)
-      (or (:hash-code data) (util/uuid))
-      (:channel data)
-      (:page data)
-      nil)))
+  (if (env/enabled? :identify.op.saved)
+    (if (:session-id data)
+      (let [op-id (ops/add-op!
+                    "identify"
+                    (:site-id data)
+                    (or (:user-id data) (:anonymous-id data))
+                    (:session-id data)
+                    (or (:hash-code data) (util/uuid))
+                    (:channel data)
+                    (:page data)
+                    nil)]
+        op-id)
+      -1)
+    -1))
