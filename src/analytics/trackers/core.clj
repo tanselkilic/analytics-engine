@@ -1,11 +1,16 @@
 (ns analytics.trackers.core
   (:require [analytics.core :refer :all]
-            [analytics.channels :as chn]
             [analytics.services.users :as users]
             [analytics.services.ops :as ops]
             [analytics.services.sessions :as sessions]
-            [analytics.utils :as util])
+            [analytics.services.metrics :as m]
+            [analytics.utils :as util]
+            [analytics.env :as env])
   (:gen-class))
+
+(defn track-metrics [context data]
+  (doseq [calc (env/metrics context)]
+    (m/+! (name context) data calc)))
 
 (defn user-session-prep [data]
   ;; Creating a user record if needed
@@ -20,6 +25,8 @@
          session (sessions/get-session session-id)]
     (if (nil? session)
       (do
+        (println "Creating new session")
+        ;; adding new session
         (sessions/add-session!
           session-id
           (:site-id data)
@@ -28,8 +35,6 @@
           (:ip (:context data))
           (:locale (:context data))
           (:user-agent (:context data)))
-        (sessions/ping-session!
-          session-id)
 
         ;; record this op as new session (land)
         (ops/add-op!
@@ -40,9 +45,13 @@
           (or (:hash-code data) (util/uuid))
           (:channel data)
           (:page data)
-          nil))))
+          nil))
+      (do
+        (println "Pinging the session")
+        (sessions/ping-session!
+          session-id))))
 
   ;; Track metrics
-  (chn/>! chn/chn-metrics {:type "user" :data data})
-  (chn/>! chn/chn-metrics {:type "session" :data data}))
+  (track-metrics :user data)
+  (track-metrics :session data))
 

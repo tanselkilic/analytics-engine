@@ -25,7 +25,8 @@
   [:site-id :manufacturer]
   [:site-id :model]
   [:site-id :screen]
-  [:site-id :timezone]]
+  [:site-id :timezone]
+  [:site-id :properties]]
  :event
  [
   ;; number of events per channel

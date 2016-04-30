@@ -8,7 +8,7 @@
    :type "event"
    :site-id "2423486b-1e8d-417b-bcd9-fb183c6eec9c"
    :user-id (str "hebelek" (util/uuid) "@pismail.com")
-   :session-id (util/uuid) ;; "6088eec0-2336-47bc-afee-845e58cf0336"
+   :session-id "2cf0ac81-e354-42c9-86b7-999fe5b66612" ;; (util/uuid) ;; "6088eec0-2336-47bc-afee-845e58cf0336"
    :channel "fn"
    :page "Sample"
    :event "Button Clicked"

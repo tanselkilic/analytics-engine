@@ -1,68 +1,70 @@
-(ns analytics.metrics.utils
+(ns analytics.services.utils.metrics
   (require [analytics.utils :as util])
   (:gen-class))
 
 (defn get-value [node data]
-  (case node
-    :site-id
+  (if (.startsWith (name node) "prop--")
+    (get (:properties data)
+         (keyword (subs (name node) 6)))
+    (case node
+      :site-id
       (:site-id data)
-    :timezone
+      :timezone
       (:timezone (:context data))
-    :screen
+      :screen
       (str
         (:width (:screen (:context data)))
         "x"
         (:height (:screen (:context data))))
-    :referrer-domain
+      :referrer-domain
       (:domain (:referrer (:page (:context data))))
-    :referrer-type
+      :referrer-type
       (:type (:referrer (:page (:context data))))
-    :os-name
+      :os-name
       (:name (:os (:context data)))
-    :os-version
+      :os-version
       (:version (:os (:context data)))
-    :carrier
+      :carrier
       (:carrier (:network (:context data)))
-    :bluetooth
+      :bluetooth
       (:bluetooth (:network (:context data)))
-    :wifi
+      :wifi
       (:wifi (:network (:context data)))
-    :cellular
+      :cellular
       (:cellular (:network (:context data)))
-    :city
+      :city
       (:city (:location (:context data)))
-    :country
+      :country
       (:country (:location (:context data)))
-    :locale
+      :locale
       (:locale (:context data))
-    :manufacturer
+      :manufacturer
       (:manufacturer (:device (:context data)))
-    :model
+      :model
       (:model (:device (:context data)))
-    :channel
+      :channel
       (:channel data)
-    :campaign-name
+      :campaign-name
       (:name (:campaign (:context data)))
-    :campaign-source
+      :campaign-source
       (:source (:campaign (:context data)))
-    :campaign-medium
+      :campaign-medium
       (:medium (:campaign (:context data)))
-    :campaign-term
+      :campaign-term
       (:term (:campaign (:context data)))
-    :campaign-content
+      :campaign-content
       (:content (:campaign (:context data)))
-    :user-id
+      :user-id
       (:user-id data)
-    :event
+      :event
       (:event data)
-    :page
+      :page
       (:page data)
-    :app-name
+      :app-name
       (:name (:app (:context data)))
-    :app-version
+      :app-version
       (:version (:app (:context data)))
-    (throw (Exception. (str "get-value with: " node)))
-    ))
+      (throw (Exception. (str "get-value with: " node))))))
 
 
 (defn get-map [context data dimensions]

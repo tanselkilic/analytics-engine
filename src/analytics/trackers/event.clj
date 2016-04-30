@@ -1,7 +1,6 @@
 (ns analytics.trackers.event
   (:use [analytics.services.ops])
   (:require [analytics.core :refer :all]
-            [analytics.channels :as chn]
             [analytics.trackers.core :as tc]
             [analytics.trackers.contexts.properties :as tp]
             [analytics.utils :as util])
@@ -27,8 +26,6 @@
     (tp/track-properties op-id data)
 
     ;; Track metrics
-    (chn/>! chn/chn-metrics
-           {:type "event"
-            :data (assoc data :op-id op-id)})
+    (tc/track-metrics :event (assoc data :op-id op-id))
 
     op-id))

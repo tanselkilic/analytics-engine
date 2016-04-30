@@ -4,11 +4,15 @@
 
 
 (def env-var (or (System/getenv "ENV") "dev"))
-(def config-map (load-file (.getFile (resource "config.edn"))))
-(def metrics-map (load-file (.getFile (resource "metrics.edn"))))
+(def db-map (load-file (.getFile (resource "analytics/config/db.edn"))))
+(def metrics-map (load-file (.getFile (resource "analytics/config/metrics.edn"))))
+(def analytics-map (load-file (.getFile (resource "analytics/config/analytics.edn"))))
 
-(defn env [k]
-  (get (get config-map (keyword env-var)) k))
+(defn db [k]
+  (get (get db-map (keyword env-var)) k))
 
 (defn metrics [k]
   (get metrics-map k))
+
+(defn analytics [k]
+  (get analytics-map k))

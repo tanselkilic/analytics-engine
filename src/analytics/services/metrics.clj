@@ -1,6 +1,6 @@
 (ns analytics.services.metrics
   (:require [analytics.core :refer :all]
-            [analytics.metrics.utils :as util]
+            [analytics.services.utils.metrics :as m-util]
             [digest :as digest])
   (:import  [java.util Date]
             [java.text SimpleDateFormat])
@@ -72,7 +72,7 @@
                  :dim-value4 dim-value4})]
           (if (nil? metric)
             (do
-              (println "Creating new metric row.")
+              ;; Creating new metric row.
               (db-create-metric!
                 {:context context
                  :metric_type p-metric-type
@@ -100,7 +100,7 @@
                  :metric_value p-incr-val
                  :updated_at (Date.)}))
             (do
-              (println "Incrementing current metric row")
+              ;; Incrementing current metric row
               (db-increment-metric!
                 {:metric_id (:id metric)
                  :incr_value p-incr-val}))))
@@ -110,13 +110,16 @@
 (defn +!
   "Increments the metric automating the date prefixes"
   [context data dimensions-map]
-  (try
-    ;; TODO: check if metric is enabled
-    (increment!
-      (util/get-map
-        context
-        data
-        dimensions-map))
-    (catch Exception e
-      (println (.getMessage e)))))
+
+  ;; TODO: check if metric is enabled
+
+  (if (true? (some #(= :properties %) dimensions-map))
+    (let [props (:properties data)
+          prop-keys (keys props)]
+      (doseq [k prop-keys]
+        (let [properties-index (.indexOf dimensions-map :properties)
+              new-keyword (keyword (str "prop--" (name k)))
+              new-dimensions-map (assoc dimensions-map properties-index new-keyword)]
+          (increment! (m-util/get-map context data new-dimensions-map)))))
+    (increment! (m-util/get-map context data dimensions-map))))
 

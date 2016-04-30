@@ -2,8 +2,7 @@
   (:require [migratus.core :as migratus]
             [clojure.java.jdbc :as jdbc]
             [conman.core :as conman]
-            [analytics.metrics.core :as metrics]
-            [analytics.env :refer [env]])
+            [analytics.env :as env])
   (:import [java.sql BatchUpdateException PreparedStatement])
   (:gen-class))
 
@@ -11,11 +10,11 @@
 (def db (atom nil))
 
 (if (nil? @db)
-  (let [db-host (env :database-host)
-        db-port (env :database-port)
-        db-name (env :database-name)
-        db-user (env :database-user)
-        db-pass (env :database-pass)
+  (let [db-host (env/db :database-host)
+        db-port (env/db :database-port)
+        db-name (env/db :database-name)
+        db-user (env/db :database-user)
+        db-pass (env/db :database-pass)
         db-url (str "jdbc:mysql://" db-host ":" db-port "/"
                     db-name "?user=" db-user "&password=" db-pass
                     "&useUnicode=yes&characterEncoding=utf8&useSSL=false")]
@@ -61,10 +60,10 @@
    :migration-dir "migrations"
    :db {:classname "com.mysql.jdbc.Driver"
         :subprotocol "mysql"
-        :subname (str "//" (env :database-host) "/" (env :database-name))
-        :user (env :database-user)
+        :subname (str "//" (env/db :database-host) "/" (env/db :database-name))
+        :user (env/db :database-user)
         :useSSL false
-        :password (env :database-pass)}})
+        :password (env/db :database-pass)}})
 
 ;; multi methods to use when tracking
 (defmulti track-op
@@ -80,7 +79,6 @@
 
 ;; main method to run via leiningen
 (defn start-app [& args]
-  (metrics/metrics-loop)
   (println "Starting app..."))
 
 (defn -main [& args]
